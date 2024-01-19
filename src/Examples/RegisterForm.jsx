@@ -1,94 +1,48 @@
-import React, { useState } from 'react';
-import { Button, TextField, Container, Typography, Grid } from '@mui/material';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import React from 'react';
+import { Button, Container, Typography } from '@mui/material';
+import {
+  useHistory,
+  useLocation,
+} from 'react-router-dom/cjs/react-router-dom.min';
+import Status from './Status';
 
 const RegisterForm = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-  });
+  const location = useLocation();
+  const data = location.state || {};
 
   const history = useHistory();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Formulario enviado:', formData);
-    history.replace('/');
-  };
   return (
-    <Container component="main" maxWidth="xs">
-      <div>
-        <Typography component="h1" variant="h5">
-          Registro
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="Nombre"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Apellido"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Correo Electrónico"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="password"
-                label="Contraseña"
-                name="password"
-                type="password"
-                value={formData.password}
-                onChange={handleChange}
-              />
-            </Grid>
-          </Grid>
-          <Button type="submit" fullWidth variant="contained" color="primary">
-            Registrarse
-          </Button>
-        </form>
-      </div>
+    <Container
+      component="div"
+      maxWidth="xs"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        minHeight: '100vh', // Asegura que el contenedor ocupe el 100% de la altura de la ventana
+        minWidth: '100%', // Asegura que el contenedor ocupe el 100% del ancho de la pantalla
+        backgroundColor: '#e2d8d8', // Puedes cambiar el color de fondo según tus preferencias
+        padding: '20px', // Añade un poco de espacio alrededor del contenido
+      }}
+    >
+      <Typography component="h1" variant="h5">
+        Registro
+      </Typography>
+      <Container
+        style={{
+          display: 'flex',
+          minWidth: '60%',
+          justifyContent: 'space-evenly',
+        }}
+      >
+        <Status status={'Disponible'} colorStatus={'lightgreen'} />
+        <Status status={'Ocupado'} colorStatus={'red'} />
+        <Status status={'Reservado'} colorStatus={'yellow'} />
+        <Status status={'No Disponible'} colorStatus={'grey'} />
+      </Container>
+
+      <Button onClick={() => history.replace('/')}>Volver</Button>
     </Container>
   );
 };

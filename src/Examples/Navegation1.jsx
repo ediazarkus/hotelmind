@@ -63,7 +63,14 @@ const Navegation1 = () => {
   const history = useHistory();
 
   const handleClick = () => {
-    history.push('/Register');
+    history.replace('/Register');
+  };
+
+  const handleClick2 = () => {
+    history.push({
+      pathname: '/RegisterForm',
+      state: { name: 'Introduccion de React' },
+    });
   };
   return (
     <Container
@@ -94,19 +101,9 @@ const Navegation1 = () => {
           </ImageListItem>
         ))}
       </ImageList>
-
-      <Button
-        variant="contained"
-        color="primary"
-        href="/Form"
-        style={{ marginTop: '10px' }}
-      >
-        Using href
-      </Button>
-
       <Button
         component={Link}
-        to="/RegisterForm"
+        to="/Form"
         variant="contained"
         color="primary"
         style={{ marginTop: '10px' }}
@@ -121,6 +118,26 @@ const Navegation1 = () => {
         style={{ marginTop: '10px', fontWeight: 'bold' }}
       >
         Using useHistory
+      </Button>
+      <Button
+        component={Link}
+        to={{
+          pathname: '/Form',
+          state: { name: 'Introduccion de React', image: itemData },
+        }}
+        variant="contained"
+        color="primary"
+        style={{ marginTop: '10px' }}
+      >
+        sending data
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleClick2}
+        style={{ marginTop: '10px', fontWeight: 'bold' }}
+      >
+        Using useHistory to send data
       </Button>
     </Container>
   );

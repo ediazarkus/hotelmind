@@ -3,14 +3,18 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, TextField, Container, Typography, Grid } from '@mui/material';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 const RegisterForm = () => {
+  const location = useLocation();
+  const data = location.state || {};
   const history = useHistory();
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Formulario enviado');
     history.replace('/');
   };
+  console.log(data);
   return (
     <Container component="main" maxWidth="xs">
       <div>
@@ -68,6 +72,9 @@ const RegisterForm = () => {
           </Button>
         </form>
       </div>
+      <Typography component="h1" variant="h5">
+        {data.name}
+      </Typography>
     </Container>
   );
 };

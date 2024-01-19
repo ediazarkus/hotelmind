@@ -36,7 +36,6 @@ const Register = () => {
       axios
         .get('https://fakestoreapi.com/products')
         .then((response) => {
-          console.log(response.data);
           setAxiosData(response.data);
         })
         .catch((error) => {
